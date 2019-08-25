@@ -190,9 +190,9 @@ int main()
 	}; 
 
 	/* VBO(Vertex Buffer Object)の生成
-	    実際に情報を格納するGPU側のバッファ */
-	GLuint vbo[3];
-	glGenBuffers(3, vbo);
+	    実際に情報を格納するGPU側のbuffer */
+	GLuint vbo[4];
+	glGenBuffers(4, vbo);
 
 	/* bufferをbind
 	有効化した変数に、頂点属性番号、頂点情報の要素数、データ型などを渡す */
@@ -208,6 +208,8 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(ratios), ratios, GL_STATIC_DRAW);
 
+	glBindBuffer(GL_DYNAMIC_COPY, vbo[3]);
+
 	// IBO(Index Buffer Object)の生成
 	GLuint ibo;
 	glGenBuffers(1, &ibo);
@@ -221,12 +223,13 @@ int main()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	/* VAO(Vertex Array Object)の生成
-	   VAOでVBOをまとめる　*/
+	   VAOでVBOをまとめる　
+	   glVertexAttribPointerの設定を保存 */
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
-	/* attribute属性を有効にする
+	/* attributeを有効にする
 	(= bindしたbufferのindexを有効化) */
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -260,10 +263,10 @@ int main()
 		glClearDepth(1.0);
 		glEnable(GL_DEPTH_TEST);
 
-		a.Transform(vec3(0.000002f*t, 0.0003f*t, 0.00004f*t), 1.0f);
-		b.Transform(vec3(0.0001f*t, 0.001f*t, 0.0003f*t), 1.0f);
-		c.Transform(vec3(0.00008f*t, 0.0001f*t, 0.0005f*t), 1.0f);
-		d.Transform(vec3(0.0004f*t, 0.0006f*t, 0.0006f*t), 1.0f);
+		a.Transform(vec3(0.000002f*t, 0.0003f*t, 0.00004f*t));
+		b.Transform(vec3(0.0001f*t, 0.001f*t, 0.0003f*t));
+		c.Transform(vec3(0.00008f*t, 0.0001f*t, 0.0005f*t));
+		d.Transform(vec3(0.0004f*t, 0.0006f*t, 0.0006f*t));
 
 		// uniform 変数 projectionMatrix に行列を設定する 
 		glUniformMatrix4fv(glGetUniformLocation(programId, "projectionMatrix"), 1, GL_FALSE, &mvpMat[0][0]);

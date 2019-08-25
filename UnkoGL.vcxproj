@@ -18,6 +18,20 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Bone.cpp" />
+    <ClCompile Include="src\lodepng.cpp" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Bone.h" />
+    <ClInclude Include="src\lodepng.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\fragment_shader.glsl" />
+    <None Include="shaders\transform_feedback.glsl" />
+    <None Include="shaders\vertex_shader.glsl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{E7AD5288-4A79-40EE-BA1A-2BB96432DAC2}</ProjectGuid>
@@ -156,22 +170,6 @@
       <AdditionalDependencies>opengl32.lib;opencv_world410d.lib;opencv_world410.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="shaders\fragment_shader.glsl" />
-    <None Include="shaders\transform_feedback.glsl" />
-    <None Include="shaders\vertex_shader.glsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Bone.cpp" />
-    <ClCompile Include="src\lodepng.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\pch.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Bone.h" />
-    <ClInclude Include="src\lodepng.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets" Condition="Exists('packages\nupengl.core.redist.0.1.0.1\build\native\nupengl.core.redist.targets')" />

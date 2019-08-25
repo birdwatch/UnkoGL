@@ -12,6 +12,15 @@ Bone::Bone(vec3 position, vec3 rotation, float scale)
 	initialScale = scale;
 	quaternion = glm::quat(position);
 	initialPosition = position;
+
+	initMat = mat4(1.0f);
+	initMat = glm::translate(initMat, -initialPosition);
+	initMat *= glm::toMat4(quaternion);
+	initMat = glm::scale(initMat, vec3(1.0f / initialScale));
+	if (parent != nullptr)
+	{
+		initMat *= parent->initMat;
+	}
 }
 
 Bone::Bone(Bone *bone, vec3 rotation, float length)
@@ -20,37 +29,32 @@ Bone::Bone(Bone *bone, vec3 rotation, float length)
 	initialScale = length;
 	quaternion = glm::quat(rotation);
 	initialPosition = vec3(0.0f, 0.0f, 1.0f);
+
+	initMat = mat4(1.0f);
+	initMat = glm::translate(initMat, -initialPosition);
+	initMat *= glm::toMat4(quaternion);
+	initMat = glm::scale(initMat, vec3(1.0f / initialScale));
+	if (parent != nullptr)
+	{
+		initMat *= parent->initMat;
+	}
 }
 
 Bone::~Bone()
 {
 }
 
-void Bone::Transform(vec3 rotate, float scale) 
+void Bone::Transform(vec3 rotate) 
 {
-	animation = mat4(1.0f);
-	animation = glm::translate(animation, -initialPosition);
-	animation *= glm::toMat4(glm::quat(rotate));
-	animation *= glm::toMat4(quaternion);
-	animation = glm::scale(animation, vec3(1.0f / (scale * initialScale)));
+	animeMat = mat4(1.0f);
+	animeMat = glm::translate(animeMat, -initialPosition);
+	animeMat *= glm::toMat4(glm::quat(rotate));
+	animeMat *= glm::toMat4(quaternion);
+	animeMat = glm::scale(animeMat, vec3(1.0f / initialScale));
 	if (parent != nullptr) 
 	{
-		animation *= parent->animation;
+		animeMat *= parent->animeMat;
 	}
 
-	convertMat = glm::inverse(animation) * getInitial();
-}
-
-mat4 Bone::getInitial() 
-{
-	mat4 initial = mat4(1.0f);
-	initial = glm::translate(initial, -initialPosition);
-	initial *= glm::toMat4(quaternion);
-	initial = glm::scale(initial, vec3(1.0f / initialScale));
-	if (parent != nullptr)
-	{
-		initial *= parent->getInitial();
-	}
-
-	return initial;
+	convertMat = glm::inverse(animeMat) * initMat;
 }

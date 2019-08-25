@@ -24,7 +24,7 @@ public:
 	Bone(Bone *bone, vec3 rotation, float length);
 
 	// animation行列の生成
-	void Transform(vec3 rotate, float scale);
+	void Transform(vec3 rotate);
 
 	// 変換行列
 	mat4 convertMat;
@@ -33,9 +33,9 @@ public:
 
 private:
 	// initial行列 初期位置におけるbone座標系とjoint座標系の絶対的な変換
-	mat4 getInitial();
+	mat4 initMat;
 	// animation行列 時刻tにおけるbone座標系とjoint座標系の絶対的な変換
-	mat4 animation;
+	mat4 animeMat;
 
 	// このBoneクラスの親
 	Bone *parent;
