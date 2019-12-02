@@ -1,19 +1,16 @@
 #version 330 core
 
-in vec3 position;
-in vec4 color;
-in vec4 ratio;
+layout(location = 0) in vec3 position;
+layout(location = 1) in vec4 ratio;
 
-out vec4 pos;
-out vec4 scolor;
+out vec4 animated_position;
 
 uniform mat4 aMat;
 uniform mat4 bMat;
 uniform mat4 cMat;
 uniform mat4 dMat;
 
-int main()
+void main(void)
 {
-scolor = color;
-pos = (ratio[0]*aMat + ratio[1]*bMat + ratio[2]*cMat + ratio[3]*dMat)*vec4(position, 1.0);
+	animated_position = (ratio[0] * aMat + ratio[1] * bMat + ratio[2] * cMat + ratio[3] * dMat) * vec4(position,1.0);
 }

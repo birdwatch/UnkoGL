@@ -1,10 +1,4 @@
-#include "pch.h"
 #include "Bone.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtx/quaternion.hpp>
-#include <glm/gtc/quaternion.hpp>
 
 Bone::Bone(vec3 position, vec3 rotation, float scale)
 {
@@ -21,6 +15,8 @@ Bone::Bone(vec3 position, vec3 rotation, float scale)
 	{
 		initMat *= parent->initMat;
 	}
+	convertMat = mat4(1.0f);
+	animeMat = mat4(1.0f);
 }
 
 Bone::Bone(Bone *bone, vec3 rotation, float length)
@@ -38,6 +34,7 @@ Bone::Bone(Bone *bone, vec3 rotation, float length)
 	{
 		initMat *= parent->initMat;
 	}
+	convertMat = mat4(1.0f);
 }
 
 Bone::~Bone()

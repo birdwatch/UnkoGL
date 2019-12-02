@@ -4,10 +4,14 @@
     <ClCompile Include="src\Bone.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\lodepng.cpp" />
+    <ClCompile Include="src\operateImage.cpp" />
+    <ClCompile Include="src\time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\lodepng.h" />
     <ClInclude Include="src\Bone.h" />
+    <ClInclude Include="src\operateImage.h" />
+    <ClInclude Include="src\time.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\fragment_shader.glsl" />
